@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ENTRIES="l'aquila\npescara\npisa\npopoli"
+choice=$(echo -e $ENTRIES | dmenu -p "weather" -i)
+
+weather=$(curl -s "wttr.in/$choice?format=%C+%t\nPrec:+%p\nWind:+%w\nMoon:+%m")
+
+notify-send "$(echo $choice | tr '[:lower:]' '[:upper:]')" "$weather"

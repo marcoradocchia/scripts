@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ $(pidof btop | wc -w) -eq 0 ] && alacritty -e btop

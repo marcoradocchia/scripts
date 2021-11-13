@@ -1,0 +1,64 @@
+#!/bin/sh
+
+#______  ___ ______ _____ _____  _____  _   _ _____  ___
+#| ___ \/ _ \|  _  \  _  /  __ \/  __ \| | | |_   _|/ _ \
+#| |_/ / /_\ \ | | | | | | /  \/| /  \/| |_| | | | / /_\ \
+#|    /|  _  | | | | | | | |    | |    |  _  | | | |  _  |
+#| |\ \| | | | |/ /\ \_/ / \__/\| \__/\| | | |_| |_| | | |
+#\_| \_\_| |_/___/  \___/ \____/ \____/\_| |_/\___/\_| |_/
+
+# Script working for maximum one external monitor connected
+
+ENTRIES="combo\nexternal\ninternal"
+choice=$(echo -e $ENTRIES | dmenu -p "display" -i)
+
+function get_display () {
+    xrandr | awk '/ connected/ && !/DP-2/ {print $1}' | dmenu -p "display" -i
+}
+
+function get_res () {
+    xrandr | awk -v disp=$1 '$0 ~ disp{g=1;next}/connected/{g=0;next}g\
+        {print $1}'| dmenu -p "resolution" -i
+}
+
+case $choice in
+    external)
+        display=$(get_display)
+        [ "$display" = "" ] && exit # handling no choice
+        res=$(get_res $display)
+        [ "$res" = "" ] && exit # handling no choice
+        xrandr --output DP-2 --off --output $display --mode $res
+        ;;
+    internal)
+        disable=$(xrandr | awk '/ connected/ && !/DP-2/ {print $1}')
+        xrandr --output DP-2 --mode 1920x1080 --rate 144\
+            --output $disable --off
+        ;;
+    combo)
+        display=$(get_display)
+        [ "$display" = "" ] && exit # handling no choice
+        res=$(get_res $display)
+        [ "$res" = "" ] && exit # handling no choice
+        POS_ENTRIES="left\nright\nup\ndown"
+        position=$(echo -e $POS_ENTRIES | dmenu -p "position" -i)
+        [ "$position" = "" ] && exit # handling no choice
+        case $position in
+            left)
+                position="--left-of"
+                ;;
+            right)
+                position="--right-of"
+                ;;
+            up)
+                position="--above"
+                ;;
+            down)
+                position="--below"
+                ;;
+        esac
+        xrandr --output $display --mode $res $position DP-2
+        ;;
+    *)
+        exit
+        ;;
+esac

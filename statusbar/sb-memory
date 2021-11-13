@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo -e "\x0dRAM: $(free --mega | awk '/^Mem:/ {print $3}')M\x0b"

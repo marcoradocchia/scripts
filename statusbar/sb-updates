@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo -e "\x0dUPDTS: $(checkupdates | wc -l)\x0b"

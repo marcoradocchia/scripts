@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ $(pidof calcurse | wc -w) -eq 0 ] && alacritty -e calcurse

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# You need to specify the extension of the files
+# EXAMPLE: tolower pdf
+
+EXT=$1
+for FILE in $(pwd)/*.$EXT; do
+    FILE_NAME=$(basename $FILE)
+    NEW_NAME=$(echo $FILE_NAME | tr '[:upper:]' '[:lower:]')
+    mv $FILE_NAME $NEW_NAME
+done

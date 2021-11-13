@@ -1,0 +1,22 @@
+#!/bin/sh
+
+ENTRIES="poweroff\nsuspend\nhibernate\nreboot"
+choice=$(echo -e $ENTRIES | dmenu -p "power" -i)
+
+case $choice in
+    poweroff)
+        systemctl poweroff
+        ;;
+    suspend)
+        systemctl suspend
+        ;;
+    hibernate)
+        systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    *)
+        exit
+        ;;
+esac

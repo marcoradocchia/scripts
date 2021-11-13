@@ -1,0 +1,6 @@
+#!/bin/sh
+
+outlook="$(find $HOME/.local/share/mail/marco.radocchia@outlook.com/[Ii][Nn][Bb][Oo][Xx]/new/* -type f 2>/dev/null | wc -l 2>/dev/null)"
+gmail="$(find $HOME/.local/share/mail/c3porad@gmail.com/INBOX/new/* -type f 2>/dev/null | wc -l 2>/dev/null)"
+
+echo -e "\x0dMAIL: $outlook/$gmail\x0b"

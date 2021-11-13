@@ -1,0 +1,7 @@
+#!/bin/sh
+
+bindings_dir=$HOME/.local/share/bindings/
+program=$(/bin/ls $bindings_dir | sed 's/-bindings//g' | dmenu)
+file=$program-bingings
+
+echo $file

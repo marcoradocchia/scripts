@@ -1,0 +1,21 @@
+#!/bin/sh
+
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
+case $STATUS in
+    Charging)
+        STATUS=" "
+        ;;
+    Discharging)
+        STATUS=" "
+        ;;
+    *)
+        STATUS=""
+        ;;
+esac
+CAPACITY=$(cat /sys/class/power_supply/BAT0/capacity)
+
+if [ $CAPACITY -le 20 ]; then
+    CAPACITY="\x0c$CAPACITY"
+fi
+
+echo -e "\x0eBAT: $STATUS$CAPACITY%\x0b"

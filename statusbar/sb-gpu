@@ -1,0 +1,8 @@
+#!/bin/sh
+
+TEMP=$(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)
+if [ $TEMP -ge 75 ]; then
+    TEMP="\x0c$TEMP"
+fi
+
+echo -e "\x0eGPU: $(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader | tr -d ' ') $TEMP°C\x0b"

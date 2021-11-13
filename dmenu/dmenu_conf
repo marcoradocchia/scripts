@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Edit config files with dmenu
+
+TERMINAL=alacritty
+XDG_CONFIG_DIR="$HOME/.config"
+ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nzathura\nzsh\nxresources"
+edit=$(echo -e $ENTRIES | dmenu -p "config" -i)
+
+case $edit in
+    aliases)
+        path=$XDG_CONFIG_DIR/shell/aliasrc
+        ;;
+    zsh)
+        path=$HOME/.zshrc
+        ;;
+    alacritty)
+        path=$XDG_CONFIG_DIR/alacritty/alacritty.yml
+        ;;
+    dunst)
+        path=$XDG_CONFIG_DIR/dunst/dunstrc
+        ;;
+    picom)
+        path=$XDG_CONFIG_DIR/picom/picom.conf
+        ;;
+    neovim)
+        path=$XDG_CONFIG_DIR/nvim/init.vim
+        ;;
+    keys)
+        path=$XDG_CONFIG_DIR/sxhkd/sxhkdrc
+        ;;
+    bash)
+        path=$HOME/.bashrc
+        ;;
+    zathura)
+        path=$XDG_CONFIG_DIR/zathura/zathurarc
+        ;;
+    xresources)
+        path=$XDG_CONFIG_DIR/X11/Xresources
+        ;;
+    *)
+        exit
+esac
+$($TERMINAL -e nvim $path)

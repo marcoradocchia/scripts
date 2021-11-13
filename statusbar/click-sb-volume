@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ $(pgrep pulsemixer | wc -w) -eq 0 ] && alacritty -e pulsemixer && sigdwmblocks 2
