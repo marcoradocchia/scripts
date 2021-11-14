@@ -4,7 +4,7 @@
 
 TERMINAL=alacritty
 XDG_CONFIG_DIR="$HOME/.config"
-ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nzathura\nzsh\nxresources"
+ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nstartpage\nzathura\nzsh\nxresources"
 edit=$(echo -e $ENTRIES | dmenu -p "config" -i)
 
 case $edit in
@@ -37,6 +37,9 @@ case $edit in
         ;;
     xresources)
         path=$XDG_CONFIG_DIR/X11/Xresources
+        ;;
+    startpage)
+        path=$HOME/.local/src/linux/startpage/index.html
         ;;
     *)
         exit
