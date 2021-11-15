@@ -4,7 +4,7 @@
 
 TERMINAL=alacritty
 XDG_CONFIG_DIR="$HOME/.config"
-ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nstartpage\nzathura\nzsh\nxresources"
+ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nstartpage\nzathura\nzsh\nxresources\nfunctions\nconfig"
 edit=$(echo -e $ENTRIES | dmenu -p "config" -i)
 
 case $edit in
@@ -41,7 +41,16 @@ case $edit in
     startpage)
         path=$HOME/.local/src/linux/startpage/index.html
         ;;
+    functions)
+        path=$HOME/.config/shell/functions
+        ;;
+    config)
+        path=$HOME/.local/bin/dmenu/dmenu_config
+        ;;
+
     *)
         exit
+        ;;
 esac
+
 $($TERMINAL -e nvim $path)
