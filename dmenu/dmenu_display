@@ -13,7 +13,8 @@ ENTRIES="combo\nexternal\ninternal"
 choice=$(echo -e $ENTRIES | dmenu -p "display" -i)
 
 function get_display () {
-    xrandr | awk '/ connected/ && !/DP-2/ {print $1}' | dmenu -p "display" -i
+    list=$(xrandr | awk '/ connected/ && !/DP-2/ {print $1}')
+    [ "$list" != "" ] && echo -e $list | dmenu -p "display" -i
 }
 
 function get_res () {
