@@ -57,7 +57,7 @@ case $choice in
                 position="--below"
                 ;;
         esac
-        xrandr --output $display --mode $res $position DP-2
+        xrandr --output DP-2 --primary  --mode 1920x1080 --rate 144 --output $display --mode $res $position DP-2
         ;;
     *)
         exit

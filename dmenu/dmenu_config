@@ -6,6 +6,7 @@ TERMINAL=alacritty
 XDG_CONFIG_DIR="$HOME/.config"
 ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nstartpage\nzathura\nzsh\nxresources\nfunctions\nconfig"
 edit=$(echo -e $ENTRIES | dmenu -p "config" -i)
+cwd=$HOME
 
 case $edit in
     aliases)
@@ -24,6 +25,7 @@ case $edit in
         path=$XDG_CONFIG_DIR/picom/picom.conf
         ;;
     neovim)
+        cwd=$XDG_CONFIG_DIR/nvim/
         path=$XDG_CONFIG_DIR/nvim/init.vim
         ;;
     keys)
@@ -53,4 +55,4 @@ case $edit in
         ;;
 esac
 
-$($TERMINAL -e nvim $path)
+$($TERMINAL --working-directory $cwd -e nvim $path)
