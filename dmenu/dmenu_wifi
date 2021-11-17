@@ -1,0 +1,21 @@
+#!/bin/bash
+
+NMCLI_OUT="$(nmcli -f SSID,BSSID,SECURITY,RATE dev wifi)"
+
+connection=$(echo "$NMCLI_OUT" | awk 'NR>1 {print $1,$2,$3,$4"Mb/s"}' |\
+    dmenu -p "wifi" -i -l 5)
+ssid=$(echo $connection | awk '{print $1}')
+bssid=$(echo $connection | awk '{print $2}')
+security=$(echo $connection | awk '{print $3}')
+
+[ "$connection" = "" ] && exit
+
+if [[ "$(nmcli connection show | grep "^$ssid ")" != "" ||\
+    "$security" == "--" ]]; then
+    nmcli dev wifi connect $bssid > /dev/null
+else
+    password="$(dmenu -p "password" -P)"
+    [ "$password" = "" ] && exit
+    nmcli dev wifi connect $bssid\
+        password $password > /dev/null
+fi
