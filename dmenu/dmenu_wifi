@@ -1,8 +1,8 @@
 #!/bin/bash
 
-NMCLI_OUT="$(nmcli -f SSID,BSSID,SECURITY,RATE dev wifi)"
+NMCLI_OUT="$(nmcli -f SSID,BSSID,SECURITY dev wifi)"
 
-connection=$(echo "$NMCLI_OUT" | awk 'NR>1 {print $1,$2,$3,$4"Mb/s"}' |\
+connection=$(echo "$NMCLI_OUT" | awk 'NR>1 {print $1,$2,$3}' |\
     dmenu -p "wifi" -i -l 5)
 ssid=$(echo $connection | awk '{print $1}')
 bssid=$(echo $connection | awk '{print $2}')

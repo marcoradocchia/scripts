@@ -1,4 +1,4 @@
 #!/bin/sh
 
-passmenu > /dev/null && pass="$(xclip -o -selection clipboard)"
-setxkbmap && xdotool type $(printf "$pass")
+/usr/bin/passmenu > /dev/null && pass="$(xclip -o -selection clipboard)"
+xdotool type $(printf "$pass")
