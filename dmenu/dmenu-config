@@ -1,12 +1,10 @@
-#!/bin/sh
-
+#!/usr/bin/env sh
 # Edit config files with dmenu
 
 TERMINAL=st
 XDG_CONFIG_DIR="$HOME/.config"
 ENTRIES="alacritty\naliases\nbash\ndunst\nkeys\nneovim\npicom\nstartpage\nzathura\nzsh\nxresources\nfunctions\nconfig"
 edit=$(echo -e $ENTRIES | dmenu -p "config" -i)
-cwd=$HOME
 
 case $edit in
   aliases)
@@ -25,7 +23,6 @@ case $edit in
     path=$XDG_CONFIG_DIR/picom/picom.conf
     ;;
   neovim)
-    cwd=$XDG_CONFIG_DIR/nvim/
     path=$XDG_CONFIG_DIR/nvim/init.vim
     ;;
   keys)
@@ -49,10 +46,9 @@ case $edit in
   config)
     path=$HOME/.local/bin/dmenu/dmenu_config
     ;;
-
   *)
     exit
     ;;
 esac
 
-$($TERMINAL --working-directory $cwd -e nvim $path)
+$TERMINAL -e nvim $path

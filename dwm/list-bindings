@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env sh
+# author: Marco Radocchia
+# WARNING: this script is incomplete
 
 bindings_dir=$HOME/.local/share/bindings/
 program=$(/bin/ls $bindings_dir | sed 's/-bindings//g' | dmenu)

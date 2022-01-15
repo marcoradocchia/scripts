@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # script to select and autotype emojis
 
 chosen=$(cut -d ';' -f 1 ~/.local/share/emojis | dmenu -i -l 10 -p "emoji" |\
-    sed "s/ .*//")
+  sed "s/ .*//")
 
 [ -z "$chosen" ] && exit # exit if none chosen
 
 # if running script with -c flag it just copies it to clipboard
 if [ "$1" = "-c" ]; then
-    printf "$chosen" | xclip -selection clipboard
-    notify-send -a "System" "Emoji" "$chosen copied to clipboard." &
+  printf "$chosen" | xclip -selection clipboard
+  notify-send -a "System" "Emoji" "$chosen copied to clipboard." &
 else
-    xdotool type "$chosen"
+  xdotool type "$chosen"
 fi

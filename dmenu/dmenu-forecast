@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 ENTRIES="l'aquila\npescara\npisa\npopoli"
 choice=$(echo -e $ENTRIES | dmenu -p "weather" -i)

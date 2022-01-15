@@ -1,14 +1,21 @@
-#!/bin/sh
+#!/usr/bin/env sh
+# author: Marco Radocchia
+# ████████╗ ██████╗  ██████╗  ██████╗ ██╗     ███████╗███╗   ███╗██╗ ██████╗
+# ╚══██╔══╝██╔═══██╗██╔════╝ ██╔════╝ ██║     ██╔════╝████╗ ████║██║██╔════╝
+#    ██║   ██║   ██║██║  ███╗██║  ███╗██║     █████╗  ██╔████╔██║██║██║     
+#    ██║   ██║   ██║██║   ██║██║   ██║██║     ██╔══╝  ██║╚██╔╝██║██║██║     
+#    ██║   ╚██████╔╝╚██████╔╝╚██████╔╝███████╗███████╗██║ ╚═╝ ██║██║╚██████╗
+#    ╚═╝    ╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚══════╝╚═╝     ╚═╝╚═╝ ╚═════╝
 
 STATE=$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -d ' ' -f2)
 
 pactl set-source-mute @DEFAULT_SOURCE@ toggle &&
 case $STATE in
-    yes)
-        STATE="ON"
-        ;;
-    no)
-        STATE="OFF"
-        ;;
+  yes)
+    STATE="ON"
+    ;;
+  no)
+    STATE="OFF"
+    ;;
 esac
 notify-send "Microphone" "$STATE" -t 1000

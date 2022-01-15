@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 BASE_URL="https://"
 BOOKMARKS=$HOME/.local/share/bookmarks
