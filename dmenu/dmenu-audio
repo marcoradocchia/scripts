@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+choice=$(pactl list sinks | awk '/Description/ {$1=""; print $0}' |\
+  dmenu -i -p 'interface')
+[ -z "$choice" ] && exit # handling no choice
+sink_name=$(pactl list sinks | grep -B 1 "$choice" | awk '/Name:/ {print $2}')
+pactl set-default-sink $sink_name
+notify-send "PulseAudio" "$choice"

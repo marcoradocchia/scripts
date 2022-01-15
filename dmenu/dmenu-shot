@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+GRUVBOX_MATERIAL_RED=ea6962
+ENTRIES="screen\nwindow\nregion"
+choice=$(echo -e $ENTRIES | dmenu -i -p "shotgun")
+[ -z $choice ] && exit # handling no choice
+filename=$HOME/$(date +"%Y-%m-%d-%H:%M:%S").png
+
+case $choice in
+  screen)
+    selection=Screen
+    shotgun $filename
+    ;;
+  window)
+    id=$(hacksaw -c $GRUVBOX_MATERIAL_RED -f %i 2>&1)
+    [ "$id" == "Error: \"Exiting due to ESC key press\"" ] && exit
+    selection=Window
+    shotgun -i $id $filename
+    ;;
+  region)
+    geometry=$(hacksaw -c $GRUVBOX_MATERIAL_RED 2>&1)
+    [ "$geometry" == "Error: \"Exiting due to ESC key press\"" ] && exit
+    selection=Region
+    shotgun -g $geometry $filename
+    ;;
+esac
+notify-send -t 800 "Screenshot" "$selection"

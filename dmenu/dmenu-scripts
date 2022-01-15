@@ -1,0 +1,16 @@
+#!/bin/sh
+#______  ___ ______ _____ _____  _____  _   _ _____  ___
+#| ___ \/ _ \|  _  \  _  /  __ \/  __ \| | | |_   _|/ _ \
+#| |_/ / /_\ \ | | | | | | /  \/| /  \/| |_| | | | / /_\ \
+#|    /|  _  | | | | | | | |    | |    |  _  | | | |  _  |
+#| |\ \| | | | |/ /\ \_/ / \__/\| \__/\| | | |_| |_| | | |
+#\_| \_\_| |_/___/  \___/ \____/ \____/\_| |_/\___/\_| |_/
+# script to quickly edit my scripts using dmenu
+
+SCRIPTS_DIR=$HOME/.local/bin/dmenu
+
+choice=$(/bin/ls $SCRIPTS_DIR | sed 's/dmenu-//' | dmenu -i -p "edit")
+[ -z $choice ] && exit # handling no choice
+edit=$SCRIPTS_DIR/dmenu-$choice
+
+alacritty -e nvim $edit && $HOME/.local/bin/refresh_keys

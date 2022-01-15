@@ -1,0 +1,11 @@
+#!/bin/sh
+
+BASE_URL="https://"
+BOOKMARKS=$HOME/.local/share/bookmarks
+
+choice="$(awk '{print $1}' $BOOKMARKS | sort | dmenu -i -p "browser") "
+[ -z $choice ] && exit # managing no choice
+
+url=$(awk -v site=$choice '$1 ~ site {print $2}' $BOOKMARKS)
+
+brave "$BASE_URL$url" 2>&1 > /dev/null

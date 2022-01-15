@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 echo -e "\x0d$(date +"%a %d %b [%H:%M]" | tr '[:lower:]' '[:upper:]')\x0b"

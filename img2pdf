@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+# coding=utf-8
+from os import listdir
+from os import getcwd
+from os.path import join
+from imghdr import what
+from PIL import Image
+
+
+CROPBOX = (0, 72, 1080, 1812)
+
+
+def get_filename() -> str:
+    while True:
+        file_name = input("Insert PDF file name (without extension): ")
+        if " " in file_name:
+            print("Please don't use spaces for file names... retry!")
+        elif file_name == "":
+            print("Please insert a file name")
+        else:
+            return file_name
+
+
+def main() -> None:
+    cwd = getcwd()
+    img_files = listdir(cwd)
+    imgs = []
+    for img in img_files:
+        ft = what(img)
+        if ft == "png" or ft == "jpg" or ft == "jpeg":
+            imgs.append(img)
+    imgs.sort()
+    print(imgs)
+    proc_imgs = []
+    for img in imgs:
+        print(img)
+        img_open = Image.open(join(cwd, img))
+        img_open = img_open.crop(CROPBOX)
+        img_open.convert("RGB")
+        proc_imgs.append(img_open)
+    print(proc_imgs)
+    proc_imgs[0].save(
+        f"{get_filename()}.pdf", save_all=True, append_images=proc_imgs[1:]
+    )
+
+
+if __name__ == "__main__":
+    main()

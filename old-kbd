@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+# author: Marco Radocchia
+
+#  ██████╗ ██╗     ██████╗ 
+# ██╔═══██╗██║     ██╔══██╗
+# ██║   ██║██║     ██║  ██║
+# ██║   ██║██║     ██║  ██║
+# ╚██████╔╝███████╗██████╔╝
+#  ╚═════╝ ╚══════╝╚═════╝ 
+#                          
+# ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗  █████╗ ██████╗ ██████╗ 
+# ██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔══██╗
+# █████╔╝ █████╗   ╚████╔╝ ██████╔╝██║   ██║███████║██████╔╝██║  ██║
+# ██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║   ██║██╔══██║██╔══██╗██║  ██║
+# ██║  ██╗███████╗   ██║   ██████╔╝╚██████╔╝██║  ██║██║  ██║██████╔╝
+# ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ 
+
+# this script remaps keys in order to use super old keyboard with no modkey
+notify-send -t 1000 "Keys" "Old keyboard keymaps"
+xset r rate 375 50  # setting repeat delay and frequency
+xmodmap $HOME/.config/X11/xmodmap_old_keyboard  # using right ctrl as mod4
+
+# refreshing sxhkd if already running
+proc=$(pgrep sxhkd)
+[ "$proc" != "" ] && kill $proc
+setsid -f sxhkd -c $HOME/.config/sxhkd/sxhkd_old_keyboard

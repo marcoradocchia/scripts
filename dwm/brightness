@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+BRIGHTNESS_FILE=$HOME/.local/share/displaybrightness
+MIN=20
+MAX=100
+new_val=$(echo "$(cat $BRIGHTNESS_FILE)$1" | bc)
+# don't go over 100% or under 10%
+if [ $new_val -gt $MAX ]; then
+  new_val=$MAX
+elif [ $new_val -lt $MIN ]; then
+  new_val=$MIN
+fi
+xrandr --output DP-2 --brightness $(echo "scale=2;$new_val / 100" | bc) &&\
+  echo $new_val > $BRIGHTNESS_FILE
+# update status bar
+sigdwmblocks 3

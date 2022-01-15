@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# keyboard options
+xset r rate 375 50
+xmodmap ~/.config/X11/xmodmap
+
+notify-send -t 800 "Keys" "Refreshing keymaps"
+proc=$(pgrep sxhkd)
+[ "$proc" != "" ] && kill $proc
+setsid -f sxhkd

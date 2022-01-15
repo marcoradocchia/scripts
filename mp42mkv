@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+working_dir=$(pwd)
+[ ! -d $working_dir/mkv ] && mkdir $working_dir/mkv
+
+for file in $working_dir/*.mp4; do
+  file_name=$(basename $file)
+  echo "Converting $file_name to mkv..."
+  ffmpeg -i $file_name $working_dir/mkv/$(echo $file_name | cut -d '.' -f 1).mkv
+done

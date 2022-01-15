@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-[ $(pidof neomutt | wc -w) -eq 0 ] && alacritty -e neomutt && sigdwmblocks 7
+[ $(pidof neomutt | wc -w) -eq 0 ] && st -e neomutt && sigdwmblocks 7

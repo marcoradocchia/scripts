@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+if [ "$(pgrep parec)" != "" ]; then
+  $HOME/.local/src/linux/nerd-dictation/nerd-dictation end > /dev/null
+  notify-send "Dictation" "Stopped"
+else
+  lang=$(/bin/ls $HOME/.config/nerd-dictation | dmenu -i -p language)
+  [ "$choice" != "" ] && exit # handling no choice
+  setsid -f $HOME/.local/src/linux/nerd-dictation/nerd-dictation begin \
+    --vosk-model-dir $HOME/.config/nerd-dictation/$lang > /dev/null
+  notify-send "Dictation" "$lang"
+fi

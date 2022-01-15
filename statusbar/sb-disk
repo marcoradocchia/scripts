@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 FREE=$(df -h /dev/sda3 | awk '/sda3/ {print substr($4, 1, length($4)-1)}')
 if [ $FREE -le 10 ]; then

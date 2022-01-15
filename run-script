@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+ENTRIES="dictate\nref-keys\nold-kbd"
+choice=$(echo -e $ENTRIES | dmenu -i -p run)
+[ -z "$choice" ] && exit # handling no choice
+
+$HOME/.local/bin/$choice

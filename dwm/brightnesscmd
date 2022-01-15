@@ -1,22 +1,32 @@
-#!/bin/python
+#!/usr/bin/env python3
+# -*- coding=utf-8 -*-
 from os.path import expanduser
 from os import popen
 from sys import argv
 
-"""
-this brightness in range [0-100]
-xrandr's brightness in range [0-10]
-"""
 
 def main():
-    with open(expanduser('~/.local/share/dwm/displaybrightness'), 'r') as brightfile:
-        brightness = int(brightfile.read().strip('\n'))
-    if len(argv) < 2: return # If no argument exit
+    """
+    This brightness in range [0-100] xrandr's brightness in range [0-10],
+    so before executing xrandr --brightness we need to do a conversion
+    usage: brightnesscmd <+/-><int>
+    """
+    brightfile_path = expanduser("~/.local/share/dwm/displaybrightness")
+    with open(brightfile_path, "r") as brightfile:
+        brightness = int(brightfile.read().strip("\n"))
+    if len(argv) < 2:
+        return  # If no argument exit
     val = int(argv[1])
     brightness = (brightness + val) / 100
-    if brightness < 0.1 or brightness > 1: return # Values less than 0.2 or more than 1 are distorting the image
-    popen(f'xrandr --output DP-2 --brightness {brightness} && echo {str(int(brightness * 100))} > ~/.local/share/dwm/displaybrightness')
+    print(brightness)
+    if brightness < 0.1 or brightness > 1:
+        return  # Values less than 0.2 or more than 1 are distorting the image
+    popen(
+        f"xrandr --output DP-2 --brightness {brightness} && "
+        f"echo {str(int(brightness * 100))}>  {brightfile_path}"
+    )
     return
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

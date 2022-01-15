@@ -1,4 +1,0 @@
-#!/bin/sh
-
-/usr/bin/passmenu > /dev/null && pass="$(xclip -o -selection clipboard)"
-xdotool type $(printf "$pass")

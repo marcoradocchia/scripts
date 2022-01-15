@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+NVIM_CONFIG_DIR=$XDG_CONFIG/nvim/
+file=$(find $NVIM_CONFIG_DIR | grep -v -e .git -e plugged -e undodir | fzf)
+nvim $file

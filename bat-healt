@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+from os.path import join
+
+BAT_DIR = "/sys/class/power_supply/BAT0"
+with open(join(BAT_DIR, "energy_full_design"), "r") as design:
+    design_value = int(design.read())
+with open(join(BAT_DIR, "energy_full"), "r") as actual:
+    actual_value = int(actual.read())
+
+print(f"{round(actual_value / design_value * 100)}%")

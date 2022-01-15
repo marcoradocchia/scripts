@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+YAY_CACHE_DIR=$HOME/.cache/yay
+PACMAN_CACHE_DIR=/var/cache/pacman/pkg
+
+for prog in $(/usr/bin/ls -o $YAY_CACHE_DIR | awk '/^d/ {print $NF}'); do
+  pacman -Q $prog > /dev/null 2>&1 || rm -rf $YAY_CACHE_DIR/$prog
+done
+sudo rm $PACMAN_CACHE_DIR/*

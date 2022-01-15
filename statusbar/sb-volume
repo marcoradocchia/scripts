@@ -1,18 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 mute=$(pactl get-sink-mute @DEFAULT_SINK@ | cut -d ' ' -f 2)
 
 case $mute in
-    yes)
-        vol="M"
-        ;;
-    no)
-        vol="$(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')"
-        if [ $vol -gt 100 ]; then
-            vol="\x0c$vol"
-        fi
-        vol="$vol%"
-        ;;
+  yes)
+    vol="M"
+    ;;
+  no)
+    vol="$(pactl get-sink-volume @DEFAULT_SINK@ |\
+      head -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')"
+    if [ $vol -gt 100 ]; then
+      vol="\x0c$vol"
+    fi
+    vol="$vol%"
+    ;;
 esac
 
 echo -e "\x0fVOL: $vol\x0b"
