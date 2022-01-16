@@ -9,7 +9,7 @@
 
 STATE=$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -d ' ' -f2)
 
-pactl set-source-mute @DEFAULT_SOURCE@ toggle &&
+pactl set-source-mute @DEFAULT_SOURCE@ toggle && sigdwmblocks 8
 case $STATE in
   yes)
     STATE="ON"

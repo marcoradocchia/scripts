@@ -18,4 +18,4 @@ if [ $CAPACITY -le 20 ]; then
   CAPACITY="\x0c$CAPACITY"
 fi
 
-echo -e "\x0eBAT: $STATUS$CAPACITY%\x0b"
+echo -e "\x0e $STATUS$CAPACITY\x0b"

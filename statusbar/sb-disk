@@ -5,4 +5,4 @@ if [ $FREE -le 10 ]; then
     FREE="\x0c$FREE"
 fi
 
-echo -e "\x10DISK: "$FREE"G\x0b"
+echo -e "\x10﫭 "$FREE"G\x0b"

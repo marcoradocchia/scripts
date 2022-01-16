@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+mute=$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -d ' ' -f 2)
+
+case $mute in
+  yes)
+    mic="--"
+    ;;
+  no)
+    mic="$(pactl get-source-volume @DEFAULT_SOURCE@ |\
+      head -n 1 | sed 's/.* \([0-9][0-9]*\)%.*/\1/')"
+    [ $mic -gt 100 ] && mic="\x0c$mic"
+    ;;
+esac
+
+echo -e "\x10 $mic\x0b"
