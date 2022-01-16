@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-echo -e "\x0d $(free --mega | awk '/^Mem:/ {print $3}')M\x0b"
+echo -e "\x0e $(free --mega | awk '/^Mem:/ {print $3}')M\x0b"

@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-echo -e "\x0e $(cat $HOME/.local/share/displaybrightness)\x0b"
+echo -e "\x0d $(cat $HOME/.local/share/displaybrightness)\x0b"

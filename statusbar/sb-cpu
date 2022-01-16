@@ -5,4 +5,4 @@ if [ $TEMP -ge 75 ]; then
   TEMP="\x0c$TEMP"
 fi
 
-echo -e "\x10 CPU $(top -bn1 | awk '/%Cpu/ {print $2}')% $TEMP°C\x0b"
+echo -e "\x0f CPU $(top -bn1 | awk '/%Cpu/ {print $2}')% $TEMP°C\x0b"

@@ -27,4 +27,4 @@ wlan=""
 prefix="ﯱ "
 [ "$SSID" != "" ] && wlan=" $SSID$freq $(awk 'NR==3 {printf("%.0f%",$3*10/7)}' /proc/net/wireless)" && prefix=""
 
-echo -e "\x0e$prefix$wlan $traffic\x0b"
+echo -e "\x10$prefix$wlan $traffic\x0b"

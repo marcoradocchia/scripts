@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-[ $(pgrep pulsemixer | wc -w) -eq 0 ] && st -e pulsemixer && sigdwmblocks 2
+[ $(pgrep pulsemixer | wc -w) -eq 0 ] && st -e pulsemixer &&\
+  sigdwmblocks 2 && sigdwmblocks 8
