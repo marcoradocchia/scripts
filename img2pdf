@@ -7,7 +7,7 @@ from imghdr import what
 from PIL import Image
 
 
-CROPBOX = (0, 72, 1080, 1812)
+# CROPBOX = (0, 72, 1080, 1812)
 
 
 def get_filename() -> str:
@@ -35,7 +35,7 @@ def main() -> None:
     for img in imgs:
         print(img)
         img_open = Image.open(join(cwd, img))
-        img_open = img_open.crop(CROPBOX)
+        # img_open = img_open.crop(CROPBOX)
         img_open.convert("RGB")
         proc_imgs.append(img_open)
     print(proc_imgs)
