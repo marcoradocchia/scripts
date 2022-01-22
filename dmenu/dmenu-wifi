@@ -1,23 +1,26 @@
 #!/usr/bin/env bash
 # author: Marco Radocchia
-# WARNING: this script is really bad... needs to be fixed
 
-NMCLI_OUT="$(nmcli -f SSID,BSSID,SECURITY dev wifi)"
+notify-send -t 1500 "Network" "Looking for WiFi networks"
+choice=$(nmcli -f BSSID,SSID,RATE,SECURITY,BARS dev wifi | sed '1d' |\
+  sort | dmenu -i -p network -l 10)
+[ -z "$choice" ] && exit  # handling no choice
+bssid=$(echo "$choice" | awk '{print $1}')
+ssid=$(nmcli -f BSSID,SSID dev wifi | grep $bssid |\
+  # TODO: not very elegant solution
+  sed 's/^[A-Z0-9][A-Z0-9]:[A-Z0-9][A-Z0-9]:[A-Z0-9][A-Z0-9]:[A-Z0-9][A-Z0-9]:[A-Z0-9][A-Z0-9]:[A-Z0-9][A-Z0-9] \(.*\)/\1/' |\
+  awk '{print $1}')
 
-connection=$(echo "$NMCLI_OUT" | awk 'NR>1 {print $1,$2,$3}' |\
-  dmenu -p "wifi" -i -l 5)
-ssid=$(echo $connection | awk '{print $1}')
-bssid=$(echo $connection | awk '{print $2}')
-security=$(echo $connection | awk '{print $3}')
+# 1 -> known; 0 -> not
+known=$(nmcli connection show | grep "^${ssid} " | wc -l)
 
-[ "$connection" = "" ] && exit
-
-if [[ "$(nmcli connection show | grep "^$ssid ")" != "" ||\
-  "$security" == "--" ]]; then
-  nmcli dev wifi connect $bssid > /dev/null
+# TODO: add option for non secured network
+if [ $known -eq 1 ]; then
+  nmcli dev wifi connect $bssid > /dev/null &&\
+    notify-send -t 1000 "Network" "Connection activated"
 else
   password="$(dmenu -p "password" -P)"
-  [ "$password" = "" ] && exit
-  nmcli dev wifi connect $bssid\
-    password $password > /dev/null
+  [ -z "$password" ] && exit
+  nmcli dev wifi connect $bssid password $password > /dev/null &&\
+    notify-send -t 1000 "Network" "Connection activated"
 fi
