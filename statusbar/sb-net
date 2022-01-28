@@ -21,7 +21,6 @@ wlan_info() {
     freq=""
   fi
   link=$(awk 'NR==3 {printf "%.0f%", $3*10/7}' /proc/net/wireless)
-  del 
   wlan=" $SSID$freq $link"
 }
 
