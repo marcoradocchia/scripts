@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-[ $(pidof btop | wc -w) -eq 0 ] && st -e btop
+[ $(pidof btop | wc -w) -eq 0 ] && st -e btop &&\
+  kill $(pidof btop) > /dev/null 2>&1

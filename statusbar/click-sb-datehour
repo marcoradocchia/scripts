@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-[ $(pidof calcurse | wc -w) -eq 0 ] && st -e calcurse
+[ $(pidof calcurse | wc -w) -eq 0 ] && st -e calcurse &&\
+  kill $(pidof calcurse) > /dev/null 2>&1
